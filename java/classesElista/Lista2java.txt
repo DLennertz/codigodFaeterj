@@ -1,0 +1,205 @@
+EX. 1
+
+import java.time.LocalDate;
+import java.time.Period;
+
+public class Pessoa{
+
+	private String nome;
+	private LocalDate dataAniversario;
+	private String email;
+
+
+	public Pessoa(String nome, LocalDate dataAniversario, String email) {
+		System.out.println("Construindo Pessoa " + nome);
+		this.nome = nome;
+		this.dataAniversario = dataAniversario;
+		this.email = email;
+	}
+
+	public String toString(){ return "Usuario: " + nome + " Email: " + email;}
+
+	public void setNome(String nome) { this.nome = nome; }
+
+	public String getNome() { return nome; }
+
+	public LocalDate getDataAniversario() {return dataAniversario;}
+
+	public void setDataAniversario(LocalDate dataAniversario) { this.dataAniversario = dataAniversario; }
+
+	public String getEmail() { return email; }
+
+	public void setEmail(String email) { this.email = email; }
+
+	public int getIdade(){return Period.between( dataAniversario, LocalDate.now()).getYears();}
+	
+}
+
+import java.time.LocalDate;
+
+public class Programa {
+
+	public static void main(String[] args) {
+
+		LocalDate date1 = LocalDate.of(1996, 5, 9);  
+		LocalDate date2 = LocalDate.of(2002, 7, 7);
+
+		Pessoa p1 = new Pessoa("Daniel", date1,"d@gmail");
+		Pessoa p2 = new Pessoa("Maria",  date2,"m@gmail.com");
+		
+		System.out.println(p1.getNome());
+		System.out.println(p2.getDataAniversario());
+		System.out.println(p1.getEmail());
+		System.out.println(p2.getIdade());
+		System.out.println(p2.toString());
+	}
+
+}
+
+EX 2
+
+public class aluno{
+	public String nome;
+
+	public void setNome(String nome){this.nome = nome;}
+
+	public String getNome(){return nome;}
+}
+
+import java.util.Arrays;
+
+public class turma{
+	private String nome;
+	private int quantidadeAlunos;
+	private int limiteAlunos;
+	private aluno[] listaAlunos = new aluno[40];
+
+	public turma(String nome){
+		this.nome = nome;
+		this.quantidadeAlunos = 0;
+		this.limiteAlunos = 40;
+	}
+
+	public String getNome() { return nome; }
+	public void setNome(String nome) { this.nome = nome; }
+
+	public int getQuantidadeAlunos() { return quantidadeAlunos; }
+	public void setQuantidadeAlunos(int quantidadeAlunos) { this.quantidadeAlunos = quantidadeAlunos; }
+
+	public int getLimiteAlunos() { return limiteAlunos; }
+	public void setLimiteAlunos(int limiteAlunos) { this.limiteAlunos = limiteAlunos; }
+
+	public void cadastrarAlunos(String nome){
+			if(quantidadeAlunos>=limiteAlunos)
+			{
+				System.out.println("Número máximo de alunos excedido");
+			}
+			else
+			{
+				listaAlunos[quantidadeAlunos].setNome(nome);
+				quantidadeAlunos++;
+			}
+	}
+
+	public void listarAlunos(){
+		for(int i=0;i<quantidadeAlunos;i++){
+			System.out.println(listaAlunos[i]);
+		}
+	}
+}
+
+import java.util.Scanner;
+
+
+public class Programa {
+
+	public static void main(String[] args) {
+		turma t1 = new turma("Java");
+		int opcao= 1;
+		String nome;
+		Scanner sc = new Scanner(System.in);
+
+		while(opcao==1){
+			System.out.println("Insira o nome do aluno da turma de "+t1.getNome());
+			nome = sc.next();
+			t1.cadastrarAlunos(nome);
+
+			System.out.println("Você deseja cadastrar um novo aluno? 1-Sim 0-Não");
+			opcao = sc.nextInt();
+		}
+
+		t1.listarAlunos();
+	}
+
+}
+
+EX 3
+
+public class Produto{
+	
+	private String codigoDeBarra;
+	private String nomeProduto;
+	private float precoProduto;
+
+	public Produto(String codigoDeBarra, String nomeProduto, float precoproduto){
+		this.codigoDeBarra=codigoDeBarra;
+		this.nomeProduto=nomeProduto;
+		this.precoproduto = precoproduto;
+	}
+
+	public Strig getCodigoDeBarra(){return codigoDeBarra;}
+
+	public Strig setCodigoDeBarra(String codigoDeBarra){this.codigoDeBarra = codigoDeBarra}
+
+	public String getNomeProduto(){return nomeProduto;}
+
+	public String setNomeProduto(String nomeProduto){this.nomeProduto = nomeProduto;}
+
+	public float getPrecoProduto(){return precoproduto;}
+
+	public float setPrecoProduto(float precoProduto){this.precoProduto = precoProduto;}
+}
+
+public class ListaPrdutos{
+	
+	private Produto[] listaDosProdutos = new Produto[40];
+	private int qtdProdutos;
+
+	public Produto(){
+		qtdProdutos=0;
+	}
+
+	public void add(Produto p){
+		Produto[qtdProdutos].setCodigoDeBarra(p.getCodigoDeBarra());
+		Produto[qtdProdutos].setNomeProduto(p.getNomeProduto());
+		Produto[qtdProdutos].setPrecoProduto(p.getPrecoProduto());
+
+		qtdProdutos++;
+
+	}
+
+	public Produto buscarPeloCodigoBarras(String codigoDeBarra){
+		for(int i = 0 ; i<qtdProdutos;i++){
+			if(Produto[qtdProdutos].getCodigoDeBarra()==codigoDeBarra){
+				return Produto[qtdProdutos];
+			}
+		}
+	}
+}
+
+public class CarrinhoCompras{
+	
+	private int qtdItems;
+	private ItemCarrinho[] itemsNoCarro = new ItemCarrinho[40];
+
+	public CarrinhoCompras(){
+		qtdItems = 0;
+	}
+
+	public void add(ItemCarrinho item){
+		itemsNoCarro[qtdItems] = item;
+		qtdItems++;
+	}
+	
+}
+

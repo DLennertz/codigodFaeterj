@@ -1,0 +1,1 @@
+(function() { return av1 * av2 })()
